@@ -16,12 +16,23 @@ Below is the quick link for android phone setups for running the project!
 https://www.youtube.com/watch?v=CnAnOXqxQsc&t=113s
 ```
 ## Screen-Shots
-[<img src="/readme/Wallabag%20Reading%20List.png" align="left"
+
+<img src = "https://user-images.githubusercontent.com/51442256/65415615-1b213380-ddc4-11e9-949e-0290b916596c.jpeg"align="left" width="200"
+    hspace="10" vspace="10">
+<img  src = "https://user-images.githubusercontent.com/51442256/65415659-2c6a4000-ddc4-11e9-8d3b-a677d9610e01.jpeg" align="left"
 width="200"
-    hspace="10" vspace="10">](/readme/Wallabag%20Reading%20List.png)
-[<img src="/readme/Wallabag%20Article%20View.png" align="center"
+    hspace="10" vspace="10">
+<img src = "https://user-images.githubusercontent.com/51442256/65415661-2d9b6d00-ddc4-11e9-97e5-156b26644f50.jpeg"align="left"
 width="200"
-    hspace="10" vspace="10">](/readme/Wallabag%20Article%20View.png)
+    hspace="10" vspace="10">
+<img src = "https://user-images.githubusercontent.com/51442256/65415665-2ecc9a00-ddc4-11e9-80dc-8a690385ed65.jpeg" align="left"
+width="200"
+    hspace="10" vspace="10">
+<img src = "https://user-images.githubusercontent.com/51442256/65415669-30965d80-ddc4-11e9-815f-6a4633d47d46.jpeg" align="left"
+width="200"
+    hspace="10" vspace="10">
+
+
 ## Features
 - Uses Tablayouts, RecyclerViews, and SearchViews for visual clarity
 - Uses Google Maps to locate 16 food trucks stored as foodTruck.json
