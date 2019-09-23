@@ -16,8 +16,8 @@ Below is the quick link for android phone setups for running the project!
 https://www.youtube.com/watch?v=CnAnOXqxQsc&t=113s
 ```
 ## Screen-Shots
-![Animated GIF-downsized_large-2](https://user-images.githubusercontent.com/51442256/65445564-838e0600-de00-11e9-884d-91d08238d18d.gif)
 ![Animated GIF-downsized_large-3](https://user-images.githubusercontent.com/51442256/65445568-85f06000-de00-11e9-8a4d-936567001fe6.gif)
+![Animated GIF-downsized_large-2](https://user-images.githubusercontent.com/51442256/65445564-838e0600-de00-11e9-884d-91d08238d18d.gif)
 ![Animated GIF-downsized_large-6](https://user-images.githubusercontent.com/51442256/65446599-b2a57700-de02-11e9-9e7e-85283e5f6798.gif)
 
 <img width = "300" alt = "KakaoTalk_Photo_2019-09-23-13-05-06" src = "https://user-images.githubusercontent.com/51442256/65446653-cd77eb80-de02-11e9-83b5-f961c12f4841.png">
