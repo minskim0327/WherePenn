@@ -140,9 +140,9 @@ class MapActivity : AppCompatActivity(){
                             // Mark the rest of the foodTrucks as original markers
                             else {
                                 it.addMarker(MarkerOptions()
-                                    .position(LatLng(ftArray[rvPosition].xVal, ftArray[rvPosition].yVal))
-                                    .title(ftArray[rvPosition].name)
-                                    .snippet(ftArray[rvPosition].description))
+                                    .position(LatLng(ftArray[index].xVal, ftArray[index].yVal))
+                                    .title(ftArray[index].name)
+                                    .snippet(ftArray[index].description))
                             }
                         }
                     } else {

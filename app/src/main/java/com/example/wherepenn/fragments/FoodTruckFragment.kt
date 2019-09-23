@@ -6,6 +6,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
@@ -63,17 +64,26 @@ class FoodTruckFragment : Fragment(){
         // Initially instantiate recyclerView
         updateRecyclerView(this.context!!, ftRecyclerView)
 
+        val background = ratingSort.background
         // Sort recyclerView by ratings
         ratingSort.setOnClickListener {
+            // Change colors of buttons just for fun!
+            ratingSort.setBackgroundColor(Color.rgb(202, 21, 62))
+            locationSort.background = background
+            // Update RecyclerView
             updateRecyclerView(this.context!!, ftRecyclerView, 0)
         }
 
         // Sort recyclerView by location proximity
         locationSort.setOnClickListener {
+            // Change colors of buttons just for fun!
+            locationSort.setBackgroundColor(Color.rgb(202, 21, 62))
+            ratingSort.background = background
             // Request permission
             if(hasPermissions()) {
                 // Calls the most-recent current location
-                fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.activity!!)
+                fusedLocationClient =
+                    LocationServices.getFusedLocationProviderClient(this.activity!!)
                 val task : Task<Location> = fusedLocationClient.lastLocation
                 task.addOnSuccessListener {location: Location? ->
                     currentLocation = LatLng(location!!.latitude, location.longitude)
@@ -103,18 +113,18 @@ class FoodTruckFragment : Fragment(){
     private fun hasPermissions(): Boolean {
         // Return False if any permissions is missing
         for(permission in MapActivity.PERMISSIONS) {
-            if(ActivityCompat.checkSelfPermission(context!!, permission) != PackageManager.PERMISSION_GRANTED){
-                return false
-            }
+            if(ActivityCompat.checkSelfPermission(context!!, permission)
+                != PackageManager.PERMISSION_GRANTED) {return false}
         }
         return true
     }
 
     // Returns a sorted ArrayList<FoodTruck> for creating recyclerViews
-    private fun loadFTdata(context: Context, type: Int) : ArrayList<FoodTruck> {
+    private fun loadFTData(context: Context, type: Int) : ArrayList<FoodTruck> {
         // load an ArrayList<FoodTruck> from foodTruck.json in assets folder.
         val json = context.assets.open("foodTruck.json").reader().readText()
-        val ftArray = Gson().fromJson<ArrayList<FoodTruck>>(json, object: TypeToken<ArrayList<FoodTruck>>() {}.type)
+        val ftArray = Gson().fromJson<ArrayList<FoodTruck>>(
+            json, object: TypeToken<ArrayList<FoodTruck>>() {}.type)
 
 
         // If location button is onClicked, calculate location for each foodTruck
@@ -128,11 +138,19 @@ class FoodTruckFragment : Fragment(){
 
         // Create sorted array
         return when(type){
-            // sort by rating
-            0 -> ArrayList(ftArray.sortedWith(compareBy(FoodTruck::rating, FoodTruck::description)).asReversed())
+            // sort by rating from highest to lowest
+            0 ->
+                ArrayList(
+                ftArray.sortedWith(
+                    compareBy(FoodTruck::rating))
+                    .asReversed()
+                )
             // sort by location proximity
             else ->
-                ArrayList(ftArray.sortedWith(compareBy(FoodTruck::distance)))
+                ArrayList(
+                    ftArray.sortedWith(
+                        compareBy(FoodTruck::distance))
+                )
         }
     }
 
@@ -140,8 +158,8 @@ class FoodTruckFragment : Fragment(){
     private fun updateRecyclerView(context: Context, view: RecyclerView, type: Int = 0) {
 
         // add recyclerView
-        val arrayFTlist = loadFTdata(context, type)
-        val adapter = FoodTruckRVAdapter(context, arrayFTlist)
+        val arrayFTList = loadFTData(context, type)
+        val adapter = FoodTruckRVAdapter(context, arrayFTList)
         view.adapter = adapter
 
         // add layoutManager
@@ -152,13 +170,15 @@ class FoodTruckFragment : Fragment(){
         // Instantiate OnClickListener for recyclerView items
         adapter.setOnItemClickListener(object: FoodTruckRVAdapter.OnItemClickListener {
             override fun onItemClick(v: View, position: Int) {
-                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
-
+                Toast.makeText(
+                    context,
+                    "${arrayFTList[position].name}\n${arrayFTList[position].description}",
+                    Toast.LENGTH_SHORT).show()
                 // Pass the intent to MapActivity
                 val intent = Intent(context, MapActivity::class.java)
                 intent.action = Intent.ACTION_VIEW
-                intent.putExtra("ITEM_XVAL", arrayFTlist[position].xVal)
-                intent.putExtra("ITEM_YVAL", arrayFTlist[position].yVal)
+                intent.putExtra("ITEM_XVAL", arrayFTList[position].xVal)
+                intent.putExtra("ITEM_YVAL", arrayFTList[position].yVal)
                 intent.`package` = "com.google.android.apps.maps"
                 startActivity(intent)
             }
