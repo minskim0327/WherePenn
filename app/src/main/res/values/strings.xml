@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">WherePenn</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="map_key" translatable="false">AIzaSyCiZc7SpDTI4EvJlNtoXTMbdV9a1ioM7U4</string>
+</resources>

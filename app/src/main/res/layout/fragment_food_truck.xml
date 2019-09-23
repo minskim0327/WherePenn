@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.FoodTruckFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ftStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/buttonDivide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.66" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ftEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ftTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ftRvTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.10" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ftBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".95" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sort By: "
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ratingSort"
+        app:layout_constraintEnd_toStartOf="@+id/ratingSort"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/ftStart"
+        app:layout_constraintTop_toTopOf="@+id/ratingSort"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <Button
+        android:id="@+id/ratingSort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Rating"
+        app:layout_constraintBottom_toTopOf="@+id/ftRvTop"
+        app:layout_constraintEnd_toStartOf="@+id/locationSort"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/ftTop"
+        app:layout_constraintVertical_bias="0.48" />
+
+    <Button
+        android:id="@+id/locationSort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Location"
+        app:layout_constraintBottom_toBottomOf="@+id/ratingSort"
+        app:layout_constraintEnd_toStartOf="@+id/buttonDivide"
+        app:layout_constraintTop_toTopOf="@+id/ratingSort"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/viewMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Map"
+        app:layout_constraintBottom_toTopOf="@+id/ftRvTop"
+        app:layout_constraintEnd_toStartOf="@+id/ftEnd"
+        app:layout_constraintStart_toStartOf="@+id/buttonDivide"
+        app:layout_constraintTop_toTopOf="@+id/ftTop" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ftRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/ftBottom"
+        app:layout_constraintEnd_toEndOf="@id/ftEnd"
+        app:layout_constraintStart_toStartOf="@id/ftStart"
+        app:layout_constraintTop_toTopOf="@+id/ftRvTop" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
