@@ -16,7 +16,11 @@ Below is the quick link for android phone setups for running the project!
 https://www.youtube.com/watch?v=CnAnOXqxQsc&t=113s
 ```
 ## Screen-Shots
+![Animated GIF-downsized_large-2](https://user-images.githubusercontent.com/51442256/65445564-838e0600-de00-11e9-884d-91d08238d18d.gif)
 ![Animated GIF-downsized_large](https://user-images.githubusercontent.com/51442256/65445457-4295f180-de00-11e9-8057-566bf8c63767.gif)
+![Animated GIF-downsized_large-3](https://user-images.githubusercontent.com/51442256/65445568-85f06000-de00-11e9-8a4d-936567001fe6.gif)
+
+
 <img width="300" alt="Screen Shot 2019-09-23 at 5 51 24 AM" src="https://user-images.githubusercontent.com/51442256/65416662-60466500-ddc6-11e9-93d9-9289046636d4.png">
 <img width="300" alt="Screen Shot 2019-09-23 at 5 51 46 AM" src="https://user-images.githubusercontent.com/51442256/65416706-76ecbc00-ddc6-11e9-80c9-4f39dd99c3e7.png">
 <img width="300" alt="Screen Shot 2019-09-23 at 5 51 54 AM" src="https://user-images.githubusercontent.com/51442256/65416722-7ce29d00-ddc6-11e9-8a8b-b11d18915f3d.png">
