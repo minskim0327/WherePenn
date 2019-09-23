@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -48,12 +49,14 @@ class BuildingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Instantiate SearchView
-        mySearchView = view.findViewById(R.id.searchView)
+        mySearchView = view.findViewById<SearchView>(R.id.searchView)
+
 
         // Fetch Json file from the API end point:
         // https://api.pennlabs.org/buildings/search?q=hill
         fetchJson()
     }
+
 
     // Parse JSon file (obtained from the API) as HomeFeed Class
     private fun fetchJson() {
@@ -102,5 +105,7 @@ class BuildingFragment : Fragment() {
             }
         })*/
     }
+
+
 }
 
