@@ -52,6 +52,7 @@ Please make sure to update tests as appropriate.
 ## Project Status
 There are minor issues:
 1. Foodtruck Fragment - sorting foodtrucks by locations (it runs fine after double-clicked)
-2. Building Fragment - need further implementation of road-views.
+2. There occurs random errors when View Map button is clicked on Foodtruck Fragment
+3. Building Fragment - need further implementation of road-views.
 
 **Project is to be modified later, and is always welcome for updates!**
