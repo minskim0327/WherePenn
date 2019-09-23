@@ -16,21 +16,11 @@ Below is the quick link for android phone setups for running the project!
 https://www.youtube.com/watch?v=CnAnOXqxQsc&t=113s
 ```
 ## Screen-Shots
-
-<img src = "https://user-images.githubusercontent.com/51442256/65415615-1b213380-ddc4-11e9-949e-0290b916596c.jpeg"align="left" width="200"
-    hspace="10" vspace="10">
-<img  src = "https://user-images.githubusercontent.com/51442256/65415659-2c6a4000-ddc4-11e9-8d3b-a677d9610e01.jpeg" align="left"
-width="200"
-    hspace="10" vspace="10">
-<img src = "https://user-images.githubusercontent.com/51442256/65415661-2d9b6d00-ddc4-11e9-97e5-156b26644f50.jpeg"align="left"
-width="200"
-    hspace="10" vspace="10">
-<img src = "https://user-images.githubusercontent.com/51442256/65415665-2ecc9a00-ddc4-11e9-80dc-8a690385ed65.jpeg" align="left"
-width="200"
-    hspace="10" vspace="10">
-<img src = "https://user-images.githubusercontent.com/51442256/65415669-30965d80-ddc4-11e9-815f-6a4633d47d46.jpeg" align="left"
-width="200"
-    hspace="10" vspace="10">
+<img width="300" alt="Screen Shot 2019-09-23 at 5 51 24 AM" src="https://user-images.githubusercontent.com/51442256/65416662-60466500-ddc6-11e9-93d9-9289046636d4.png">
+<img width="300" alt="Screen Shot 2019-09-23 at 5 51 46 AM" src="https://user-images.githubusercontent.com/51442256/65416706-76ecbc00-ddc6-11e9-80c9-4f39dd99c3e7.png">
+<img width="300" alt="Screen Shot 2019-09-23 at 5 51 54 AM" src="https://user-images.githubusercontent.com/51442256/65416722-7ce29d00-ddc6-11e9-8a8b-b11d18915f3d.png">
+<img width="300" alt="Screen Shot 2019-09-23 at 5 52 01 AM" src="https://user-images.githubusercontent.com/51442256/65416730-80762400-ddc6-11e9-879d-c16753fea352.png">
+<img width="300" alt="Screen Shot 2019-09-23 at 5 52 11 AM" src="https://user-images.githubusercontent.com/51442256/65416736-823fe780-ddc6-11e9-9666-1e0fabcf9433.png">
 
 
 ## Features
