@@ -40,22 +40,14 @@ import com.google.maps.android.SphericalUtil
 
 
 /**
- * A simple [Fragment] subclass.
+ * A Fragment Class for FoodTruck
  */
 class FoodTruckFragment : Fragment(){
 
-
-    private val PERMISSIONS = arrayOf(
-        Manifest.permission.ACCESS_COARSE_LOCATION,
-        Manifest.permission.ACCESS_FINE_LOCATION
-    )
-
-    // 퍼미션 승인 요청 시 사용한는 요청 코드
-    private val REQUEST_PERMISSION_CODE = 1
-
-    //private lateinit var currentLocation: LatLng
+    //private lateInit var currentLocation: LatLng
     private var currentLocation = LatLng(0.0, 0.0)
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,32 +59,37 @@ class FoodTruckFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Initially instantiate recyclerView
         updateRecyclerView(this.context!!, ftRecyclerView)
 
-
-        /** update recycler view**/
+        // Sort recyclerView by ratings
         ratingSort.setOnClickListener {
             updateRecyclerView(this.context!!, ftRecyclerView, 0)
         }
 
+        // Sort recyclerView by location proximity
         locationSort.setOnClickListener {
-            // request permission
+            // Request permission
             if(hasPermissions()) {
-                // 마지막으로 업데이트된 위치를 가져옴
+                // Calls the most-recent current location
                 fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.activity!!)
-                //fetchLastLocation()
                 val task : Task<Location> = fusedLocationClient.lastLocation
                 task.addOnSuccessListener {location: Location? ->
                     currentLocation = LatLng(location!!.latitude, location.longitude)
                 }
-                //Toast.makeText(this.context!!, currentLocation.longitude.toString(), Toast.LENGTH_SHORT).show()
                 updateRecyclerView(this.context!!, ftRecyclerView, 1)
             } else {
-                // 권한 요청
-                ActivityCompat.requestPermissions(activity!!, PERMISSIONS, REQUEST_PERMISSION_CODE)
+                // Request Permission
+                ActivityCompat.requestPermissions(
+                    activity!!,
+                    MapActivity.PERMISSIONS,
+                    MapActivity.REQUEST_PERMISSION_CODE
+                )
             }
         }
 
+        // View Map with all foodTrucks marked
         viewMap.setOnClickListener {
             val intent = Intent(this.context!!, MapActivity::class.java)
             intent.action = Intent.ACTION_VIEW
@@ -102,10 +99,10 @@ class FoodTruckFragment : Fragment(){
         }
     }
 
-    // Checks to see if there are permissions
-    fun hasPermissions(): Boolean {
-        // 퍼미션 목록중 하나라도 권한이 없으면 false 반환
-        for(permission in PERMISSIONS) {
+    // Checks to see if there are omitted permissions
+    private fun hasPermissions(): Boolean {
+        // Return False if any permissions is missing
+        for(permission in MapActivity.PERMISSIONS) {
             if(ActivityCompat.checkSelfPermission(context!!, permission) != PackageManager.PERMISSION_GRANTED){
                 return false
             }
@@ -113,11 +110,14 @@ class FoodTruckFragment : Fragment(){
         return true
     }
 
+    // Returns a sorted ArrayList<FoodTruck> for creating recyclerViews
     private fun loadFTdata(context: Context, type: Int) : ArrayList<FoodTruck> {
+        // load an ArrayList<FoodTruck> from foodTruck.json in assets folder.
         val json = context.assets.open("foodTruck.json").reader().readText()
         val ftArray = Gson().fromJson<ArrayList<FoodTruck>>(json, object: TypeToken<ArrayList<FoodTruck>>() {}.type)
-        // calculate location
 
+
+        // If location button is onClicked, calculate location for each foodTruck
         if (type == 1){
             for (item in ftArray){
                 item.distance = SphericalUtil
@@ -126,33 +126,37 @@ class FoodTruckFragment : Fragment(){
             }
         }
 
-
-        // create sorted array
+        // Create sorted array
         return when(type){
+            // sort by rating
             0 -> ArrayList(ftArray.sortedWith(compareBy(FoodTruck::rating, FoodTruck::description)).asReversed())
+            // sort by location proximity
             else ->
                 ArrayList(ftArray.sortedWith(compareBy(FoodTruck::distance)))
         }
     }
 
+    // Updates recyclerView whenever there are changes for FoodTruckFragment
     private fun updateRecyclerView(context: Context, view: RecyclerView, type: Int = 0) {
+
         // add recyclerView
         val arrayFTlist = loadFTdata(context, type)
         val adapter = FoodTruckRVAdapter(context, arrayFTlist)
         view.adapter = adapter
+
         // add layoutManager
         val lm = LinearLayoutManager(context)
         view.layoutManager = lm
         view.setHasFixedSize(true)
 
-        // when the layout is onClicked
+        // Instantiate OnClickListener for recyclerView items
         adapter.setOnItemClickListener(object: FoodTruckRVAdapter.OnItemClickListener {
             override fun onItemClick(v: View, position: Int) {
                 Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
-                // Intent
+
+                // Pass the intent to MapActivity
                 val intent = Intent(context, MapActivity::class.java)
                 intent.action = Intent.ACTION_VIEW
-
                 intent.putExtra("ITEM_XVAL", arrayFTlist[position].xVal)
                 intent.putExtra("ITEM_YVAL", arrayFTlist[position].yVal)
                 intent.`package` = "com.google.android.apps.maps"

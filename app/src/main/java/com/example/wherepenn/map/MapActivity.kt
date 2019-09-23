@@ -32,43 +32,41 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MapActivity : AppCompatActivity(){
 
-    // 런타임에서 권한이 필요한 permission 목록
-    private val PERMISSIONS = arrayOf(
-        Manifest.permission.ACCESS_COARSE_LOCATION,
-        Manifest.permission.ACCESS_FINE_LOCATION
-    )
+    // Permission Request Variables
+    companion object{
+        val PERMISSIONS = arrayOf(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        )
+        const val REQUEST_PERMISSION_CODE = 1
+    }
 
-    // 퍼미션 승인 요청 시 사용한는 요청 코드
-    private val REQUEST_PERMISSION_CODE = 1
-
-    // 기본 앱 줌 레벨
+    // Default Zoom Level
     private val DEFAULT_ZOOM_LEVEL = 14f
 
-    // 기본 위치(Map Default Center)
+    // Map Default Center
     val DEFAULT_PENN = LatLng(39.9529, -75.197098)
 
-    // 구글 맵 객체를 참조할 멤버 변수
+    // Member Variable for GoogleMap
     var googleMap: GoogleMap? = null
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
 
-
-        // 맵 뷰에 onCreate 함수 호출
+        // Call onCreate on mapView
         mapView.onCreate(savedInstanceState)
 
-        // 앱이 실행될 때 런타임에서 위치 서비스 관련 권한 체크
+        // Check Permission regarding location on runtime
         if(hasPermissions()) {
+            // Initialize Map
             initMap()
         } else {
-            // 권한 요청
+            // Request Permission if there are no current request granted
             ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_PERMISSION_CODE)
         }
 
-        // 현재 위치 버튼 클릭 이벤트 리스너 설정
+        // OnClickListener for Floating button to show current location
         myLocationButton.setOnClickListener { onMyLocationButtonClick() }
     }
 
@@ -78,12 +76,13 @@ class MapActivity : AppCompatActivity(){
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        // 맵 초기화
+        // Initialize Map
         initMap()
     }
 
+    // Checks to see if there are omitted permissions
     fun hasPermissions(): Boolean {
-        // 퍼미션 목록중 하나라도 권한이 없으면 false 반환
+        // Return False if any permissions is missing
         for(permission in PERMISSIONS) {
             if(ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED){
                 return false
@@ -92,53 +91,73 @@ class MapActivity : AppCompatActivity(){
         return true
     }
 
-    // 맵 초기화 하는 함수
+    // Initialize Map
     @SuppressLint("MissingPermission")
     fun initMap() {
-        // 맵뷰에서 구글 맵을 불러오는 함수. 컬백함수에서 구글 맵 객체가 전달됨
+        // Get GoogleMap in mapView. GoogleMap Instance is provided in callBacks
         mapView.getMapAsync {
             googleMap = it
-            // 현재위치로 이동 버튼 비활성화
+
+            // Deactivate currentLocation until Permission is checked
             it.uiSettings.isMyLocationButtonEnabled = false
-            // 위치 사용 권한이 있는 경우
+
+            // load an ArrayList<FoodTruck> from foodTruck.json in assets folder.
             val json = assets.open("foodTruck.json").reader().readText()
             val ftArray = Gson().fromJson<ArrayList<FoodTruck>>(json, object: TypeToken<ArrayList<FoodTruck>>() {}.type)
 
-            val xval = intent.getDoubleExtra("ITEM_XVAL", 0.0)
-            val yval = intent.getDoubleExtra("ITEM_YVAL", 0.0)
+
+            // RecyclerViewPosition is initialized as -1
             var rvPosition = -1
+            // Find the original index of the recyclerView item(passed from FoodTruck Fragment)
+            val xVal = intent.getDoubleExtra("ITEM_XVAL", 0.0)
+            val yVal = intent.getDoubleExtra("ITEM_YVAL", 0.0)
             for (index in 0 until ftArray.size) {
-                if(ftArray[index].xVal == xval && ftArray[index].yVal == yval)
+                // If item is onClicked from RecyclerView, save the index corresponding to ftARray
+                if(ftArray[index].xVal == xVal && ftArray[index].yVal == yVal)
                     rvPosition = index
             }
 
             when{
                 hasPermissions() -> {
-                    // 현재 위치 표시 활성화
+                    // Activate Current Location
                     it.isMyLocationEnabled = true
-                    // 현재 위치로 카메라 이동
 
-                    for (item in ftArray){
-                        it.addMarker(
-                            MarkerOptions()
-                                .position(LatLng(item.xVal, item.yVal))
-                                .title(item.name)
-                                .snippet(item.description)
-                        )
-                    }
+                    // If the information is passed from RecyclerView Item OnClick
                     if (rvPosition != -1){
                         it.moveCamera(
                             CameraUpdateFactory.newLatLngZoom(LatLng(ftArray[rvPosition].xVal, ftArray[rvPosition].yVal), DEFAULT_ZOOM_LEVEL + 1f)
                         )
-                        it.addMarker(MarkerOptions()
-                            .position(LatLng(ftArray[rvPosition].xVal, ftArray[rvPosition].yVal))
-                            .title(ftArray[rvPosition].name)
-                            .snippet(ftArray[rvPosition].description)
-                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_round)))
+                        for (index in 0 until ftArray.size){
+                            // Mark the designated recycler view item with different icon
+                            if (index == rvPosition) {
+                                it.addMarker(
+                                MarkerOptions()
+                                    .position(LatLng(ftArray[index].xVal, ftArray[index].yVal))
+                                    .title(ftArray[index].name)
+                                    .snippet(ftArray[index].description)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_round)))
+                            }
+                            // Mark the rest of the foodTrucks as original markers
+                            else {
+                                it.addMarker(MarkerOptions()
+                                    .position(LatLng(ftArray[rvPosition].xVal, ftArray[rvPosition].yVal))
+                                    .title(ftArray[rvPosition].name)
+                                    .snippet(ftArray[rvPosition].description))
+                            }
+                        }
                     } else {
                         it.moveCamera(
                             CameraUpdateFactory.newLatLngZoom(getMyLocation(), DEFAULT_ZOOM_LEVEL)
                         )
+                        for (item in ftArray){
+                            it.addMarker(
+                                MarkerOptions()
+                                    .position(LatLng(item.xVal, item.yVal))
+                                    .title(item.name)
+                                    .snippet(item.description)
+                            )
+                        }
+
                     }
                 }
                 else -> {
@@ -150,21 +169,21 @@ class MapActivity : AppCompatActivity(){
         }
     }
 
+    // Get current location
     @SuppressLint("MissingPermission")
     fun getMyLocation(): LatLng{
-        //googleMap?.isMyLocationEnabled = true
-        // 위치를 측정하는 프로바이더를 GPS 센서로 지정
+        // Instantiate a GPS Provider
         val locationProvider : String = LocationManager.GPS_PROVIDER
-        // 위치 서비스 객체를 불러옴
+        // Instantiate a locationManager
         val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        // 마지막으로 업데이트된 위치를 가져옴
+        // Bring the last known current location
         val lastKnownLocation: Location? = locationManager.getLastKnownLocation(locationProvider)
-        // 위치 경도 객체로 반환
+        // return location as LatLng Class
         return LatLng(lastKnownLocation!!.latitude, lastKnownLocation.longitude)
     }
 
-    // 현재 위치 버튼 클릭한 경우
-    fun onMyLocationButtonClick() {
+    // When the floating button for current location is OnClicked
+    private fun onMyLocationButtonClick() {
         when {
             hasPermissions() -> googleMap?.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(getMyLocation(), DEFAULT_ZOOM_LEVEL))

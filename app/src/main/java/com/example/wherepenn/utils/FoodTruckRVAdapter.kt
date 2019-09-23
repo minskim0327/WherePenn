@@ -11,9 +11,25 @@ import com.example.wherepenn.R
 import com.example.wherepenn.fragments.FoodTruckFragment
 import org.w3c.dom.Text
 
+// RecyclerView Adapter for FoodTruck Fragment
 class FoodTruckRVAdapter(val context: Context, val truckList: ArrayList<FoodTruck>) :
         RecyclerView.Adapter<FoodTruckRVAdapter.Holder>(){
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+        val view = LayoutInflater.from(context)
+            .inflate(R.layout.food_truck_rv_item, parent, false)
+        return Holder(view)
+    }
+
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+        holder.bind(truckList[position], context)
+    }
+
+    override fun getItemCount(): Int {
+        return truckList.size
+    }
+
+    // Instantiate OnClickListener for RecyclerView Items
     interface OnItemClickListener{
         fun onItemClick(v: View, position: Int)
     }
@@ -33,20 +49,7 @@ class FoodTruckRVAdapter(val context: Context, val truckList: ArrayList<FoodTruc
         this.mListener = listener
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view = LayoutInflater.from(context)
-            .inflate(R.layout.food_truck_rv_item, parent, false)
-        return Holder(view)
-    }
-
-    override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bind(truckList[position], context)
-    }
-
-    override fun getItemCount(): Int {
-        return truckList.size
-    }
-
+    // Define a holder class for implementing UIs
     inner class Holder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
 
         private val ftLayout = itemView?.findViewById<View>(R.id.food_truck_rv_item)
@@ -55,6 +58,7 @@ class FoodTruckRVAdapter(val context: Context, val truckList: ArrayList<FoodTruc
         private val ftLocation = itemView?.findViewById<TextView>(R.id.ftLocation)
         private val ftRating = itemView?.findViewById<TextView>(R.id.ftRating)
 
+        // Instantiate onClickListener for RecyclerView
         init{
             ftLayout!!.setOnClickListener {
                 val position = adapterPosition
@@ -65,11 +69,12 @@ class FoodTruckRVAdapter(val context: Context, val truckList: ArrayList<FoodTruc
                 }
             }
         }
+
         fun bind (ft: FoodTruck, context: Context) {
             ftName?.text = ft.name
             ftDescription?.text = ft.description
             ftLocation?.text = locationConverter(ft.avenue, ft.street)
-            ftRating?.text = "${String.format("%.1f",ft.rating).toDouble()}/5.0"
+            ftRating?.text = "${String.format("%.1f", ft.rating).toDouble()}/5.0"
         }
     }
 

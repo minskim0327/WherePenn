@@ -1,5 +1,7 @@
 package com.example.wherepenn.utils
 
+
+// Data Class For Buildings
 data class Building(
     var additional_text : String = "",
     var address: String = "",

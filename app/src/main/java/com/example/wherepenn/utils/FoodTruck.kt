@@ -3,6 +3,8 @@ package com.example.wherepenn.utils
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
+// FoodTruck Class Parcelled for future modification
+// Parcelable classes(user-defined classes) can be directly sent as input to intent
 @Parcelize
 data class FoodTruck(
     var name: String = "",

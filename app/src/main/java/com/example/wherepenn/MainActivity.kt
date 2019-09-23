@@ -15,11 +15,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         // create tabs in TabLayout
         createTabs()
     }
 
     private fun createTabs() {
+        // Create Tabs with headings
         adapter.addFragment(FoodTruckFragment(), "FoodTruck")
         adapter.addFragment(BuildingFragment(), "Buildings")
 
@@ -28,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         tabs.setupWithViewPager(viewPager)
     }
 
+    // Terminate App when backPressed
     override fun onBackPressed() {
         finish()
     }

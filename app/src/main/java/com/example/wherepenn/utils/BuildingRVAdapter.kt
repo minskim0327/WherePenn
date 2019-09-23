@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wherepenn.R
 
+// RecyclerViewAdapter for Building Fragment
 class BuildingRVAdapter(val context: Context, homeFeed: HomeFeed) :
     RecyclerView.Adapter<BuildingRVAdapter.Holder>(){
 
