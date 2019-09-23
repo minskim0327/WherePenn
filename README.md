@@ -21,11 +21,7 @@ https://www.youtube.com/watch?v=CnAnOXqxQsc&t=113s
 ![Animated GIF-downsized_large-6](https://user-images.githubusercontent.com/51442256/65446599-b2a57700-de02-11e9-9e7e-85283e5f6798.gif)
 
 <img width = "300" alt = "KakaoTalk_Photo_2019-09-23-13-05-06" src = "https://user-images.githubusercontent.com/51442256/65446653-cd77eb80-de02-11e9-83b5-f961c12f4841.png">
-<img width="300" alt="Screen Shot 2019-09-23 at 5 51 24 AM" src="https://user-images.githubusercontent.com/51442256/65416662-60466500-ddc6-11e9-93d9-9289046636d4.png">
-<img width="300" alt="Screen Shot 2019-09-23 at 5 51 46 AM" src="https://user-images.githubusercontent.com/51442256/65416706-76ecbc00-ddc6-11e9-80c9-4f39dd99c3e7.png">
-<img width="300" alt="Screen Shot 2019-09-23 at 5 51 54 AM" src="https://user-images.githubusercontent.com/51442256/65416722-7ce29d00-ddc6-11e9-8a8b-b11d18915f3d.png">
-<img width="300" alt="Screen Shot 2019-09-23 at 5 52 01 AM" src="https://user-images.githubusercontent.com/51442256/65416730-80762400-ddc6-11e9-879d-c16753fea352.png">
-<img width="300" alt="Screen Shot 2019-09-23 at 5 52 11 AM" src="https://user-images.githubusercontent.com/51442256/65416736-823fe780-ddc6-11e9-9666-1e0fabcf9433.png">
+
 
 
 ## Features
