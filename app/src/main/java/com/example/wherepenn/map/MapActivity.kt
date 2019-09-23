@@ -41,11 +41,17 @@ class MapActivity : AppCompatActivity(){
         const val REQUEST_PERMISSION_CODE = 1
     }
 
+
+
     // Default Zoom Level
     private val DEFAULT_ZOOM_LEVEL = 14f
 
     // Map Default Center
     val DEFAULT_PENN = LatLng(39.9529, -75.197098)
+
+    // Location Variables
+    private var currentLocation = DEFAULT_PENN
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     // Member Variable for GoogleMap
     var googleMap: GoogleMap? = null
@@ -146,8 +152,9 @@ class MapActivity : AppCompatActivity(){
                             }
                         }
                     } else {
+                        getMyLocation()
                         it.moveCamera(
-                            CameraUpdateFactory.newLatLngZoom(getMyLocation(), DEFAULT_ZOOM_LEVEL)
+                            CameraUpdateFactory.newLatLngZoom(currentLocation, DEFAULT_ZOOM_LEVEL)
                         )
                         for (item in ftArray){
                             it.addMarker(
@@ -171,22 +178,22 @@ class MapActivity : AppCompatActivity(){
 
     // Get current location
     @SuppressLint("MissingPermission")
-    fun getMyLocation(): LatLng{
-        // Instantiate a GPS Provider
-        val locationProvider : String = LocationManager.GPS_PROVIDER
-        // Instantiate a locationManager
-        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        // Bring the last known current location
-        val lastKnownLocation: Location? = locationManager.getLastKnownLocation(locationProvider)
-        // return location as LatLng Class
-        return LatLng(lastKnownLocation!!.latitude, lastKnownLocation.longitude)
+    fun getMyLocation(){
+        fusedLocationClient =
+            LocationServices.getFusedLocationProviderClient(this)
+        val task : Task<Location> = fusedLocationClient.lastLocation
+        task.addOnSuccessListener {location: Location? ->
+            currentLocation = LatLng(location!!.latitude, location.longitude)
+        }
     }
 
     // When the floating button for current location is OnClicked
     private fun onMyLocationButtonClick() {
         when {
-            hasPermissions() -> googleMap?.moveCamera(
-                CameraUpdateFactory.newLatLngZoom(getMyLocation(), DEFAULT_ZOOM_LEVEL))
+            hasPermissions() -> {
+                getMyLocation()
+                googleMap?.moveCamera(
+                CameraUpdateFactory.newLatLngZoom(currentLocation, DEFAULT_ZOOM_LEVEL + 1f))}
             else -> Toast.makeText(
                 applicationContext, "Agree to the permission", Toast.LENGTH_SHORT)
                 .show()

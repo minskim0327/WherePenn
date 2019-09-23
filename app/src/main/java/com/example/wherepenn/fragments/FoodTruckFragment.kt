@@ -96,14 +96,16 @@ class FoodTruckFragment : Fragment(){
                     MapActivity.PERMISSIONS,
                     MapActivity.REQUEST_PERMISSION_CODE
                 )
+                return@setOnClickListener
             }
+
         }
 
         // View Map with all foodTrucks marked
         viewMap.setOnClickListener {
             val intent = Intent(this.context!!, MapActivity::class.java)
             intent.action = Intent.ACTION_VIEW
-            intent.putExtra("VIEW_MODE", "ENTIRE_VIEW")
+            //intent.putExtra("VIEW_MODE", "ENTIRE_VIEW")
             intent.`package` = "com.google.android.apps.maps"
             startActivity(intent)
         }
@@ -175,12 +177,12 @@ class FoodTruckFragment : Fragment(){
                     "${arrayFTList[position].name}\n${arrayFTList[position].description}",
                     Toast.LENGTH_SHORT).show()
                 // Pass the intent to MapActivity
-                val intent = Intent(context, MapActivity::class.java)
-                intent.action = Intent.ACTION_VIEW
-                intent.putExtra("ITEM_XVAL", arrayFTList[position].xVal)
-                intent.putExtra("ITEM_YVAL", arrayFTList[position].yVal)
-                intent.`package` = "com.google.android.apps.maps"
-                startActivity(intent)
+                val intent2 = Intent(context, MapActivity::class.java)
+                intent2.action = Intent.ACTION_VIEW
+                intent2.putExtra("ITEM_XVAL", arrayFTList[position].xVal)
+                intent2.putExtra("ITEM_YVAL", arrayFTList[position].yVal)
+                intent2.`package` = "com.google.android.apps.maps"
+                startActivity(intent2)
             }
         })
     }
